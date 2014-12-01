@@ -19,8 +19,6 @@ import javax.swing.JLabel;
 public class Tetris extends JFrame {
 
 	JLabel statusbar;
-	JLabel instructionbar;
-	String instructiontext;
 
 
 	public Tetris() {
@@ -28,30 +26,19 @@ public class Tetris extends JFrame {
 		statusbar = new JLabel(" 0");
 		statusbar.setBorder(BorderFactory.createLineBorder(Color.green));
 		//statusbar.setSize(200,400);
-		add(statusbar, BorderLayout.EAST);
-		instructiontext = ""
-				+ "<html><body><table>"
-				+ "<tr><td align='right'>p</td><td>=</td><td align='left'>pause</td></tr>"
-				+ "<tr><td align='right'>d</td><td>=</td><td align='left'>drop faster</td></tr>"
-				+ "<tr><td align='right'>space</td><td>=</td><td align='left'>drop instant</td></tr>"
-				+ "<tr><td align='right'>\u2190</td><td>=</td><td align='left'>left</td></tr>"
-				+ "<tr><td align='right'>\u2192</td><td>=</td><td align='left'>right</td></tr>"
-				+ "<tr><td align='right'>\u2191</td><td>=</td><td align='left'>rotate left</td></tr>"
-				+ "<tr><td align='right'>\u2193</td><td>=</td><td align='left'>rotate right</td></tr>"
-				+ "</table></body></html>";
-		instructionbar = new JLabel(instructiontext);
-		instructionbar.setBorder(BorderFactory.createLineBorder(Color.yellow));
-		add(instructionbar, BorderLayout.WEST);
-		//instructionbar.setSize(200,400);
+		//add(statusbar, BorderLayout.EAST);		
+		Instructions instruct = new Instructions();
+		add(instruct, BorderLayout.WEST);
 		Board board = new Board(this);
 		add(board, BorderLayout.CENTER);
 		board.start();
 
 		//board.setSize(200, 400);
-		setSize(400,400);
+		//setSize(400,400);
 		setTitle("Tetris");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		music();
+		//music();
+		pack();
 	}
 
 	public JLabel getStatusBar() {
