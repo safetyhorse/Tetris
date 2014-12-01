@@ -14,6 +14,9 @@ hs_err_pid*
 #font files#
 *.ttf
 
+#midi files#
+*.mid
+
 #eclipse stuff#
 *.pydevproject
 .metadata

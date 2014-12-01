@@ -1,7 +1,17 @@
 package tetris;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -9,19 +19,39 @@ import javax.swing.JLabel;
 public class Tetris extends JFrame {
 
 	JLabel statusbar;
+	JLabel instructionbar;
+	String instructiontext;
 
 
 	public Tetris() {
 
 		statusbar = new JLabel(" 0");
-		add(statusbar, BorderLayout.SOUTH);
+		statusbar.setBorder(BorderFactory.createLineBorder(Color.green));
+		//statusbar.setSize(200,400);
+		add(statusbar, BorderLayout.EAST);
+		instructiontext = ""
+				+ "<html><body><table>"
+				+ "<tr><td align='right'>p</td><td>=</td><td align='left'>pause</td></tr>"
+				+ "<tr><td align='right'>d</td><td>=</td><td align='left'>drop faster</td></tr>"
+				+ "<tr><td align='right'>space</td><td>=</td><td align='left'>drop instant</td></tr>"
+				+ "<tr><td align='right'>\u2190</td><td>=</td><td align='left'>left</td></tr>"
+				+ "<tr><td align='right'>\u2192</td><td>=</td><td align='left'>right</td></tr>"
+				+ "<tr><td align='right'>\u2191</td><td>=</td><td align='left'>rotate left</td></tr>"
+				+ "<tr><td align='right'>\u2193</td><td>=</td><td align='left'>rotate right</td></tr>"
+				+ "</table></body></html>";
+		instructionbar = new JLabel(instructiontext);
+		instructionbar.setBorder(BorderFactory.createLineBorder(Color.yellow));
+		add(instructionbar, BorderLayout.WEST);
+		//instructionbar.setSize(200,400);
 		Board board = new Board(this);
-		add(board);
+		add(board, BorderLayout.CENTER);
 		board.start();
 
-		setSize(200, 400);
+		//board.setSize(200, 400);
+		setSize(400,400);
 		setTitle("Tetris");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		music();
 	}
 
 	public JLabel getStatusBar() {
@@ -35,4 +65,27 @@ public class Tetris extends JFrame {
 		game.setVisible(true);
 
 	} 
+	
+	public static void music()
+	{
+		 try {
+		        // From file
+		        Sequence sequence = MidiSystem.getSequence(new File("the_cure-close_to_me.mid"));
+		    
+		        // From URL
+		       // sequence = MidiSystem.getSequence(new URL("http://hostname/midiaudiofile"));
+		    
+		        // Create a sequencer for the sequence
+		        Sequencer sequencer = MidiSystem.getSequencer();
+		        sequencer.open();
+		        sequencer.setSequence(sequence);
+		        sequencer.setLoopCount(1000);
+		        // Start playing
+		        sequencer.start();
+		    } catch (MalformedURLException e) {
+		    } catch (IOException e) {
+		    } catch (MidiUnavailableException e) {
+		    } catch (InvalidMidiDataException e) {
+		    }
+	}
 }

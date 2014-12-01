@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -31,6 +32,7 @@ public class Board extends JPanel implements ActionListener {
     JLabel statusbar;
     Shape curPiece;
     Tetrominoes[] board;
+    int speed;
 
 
 
@@ -38,14 +40,23 @@ public class Board extends JPanel implements ActionListener {
 
        setFocusable(true);
        curPiece = new Shape();
-       timer = new Timer(400, this);
+       speed = 400;
+       timer = new Timer(speed, this);
        timer.start(); 
 
+       this.setBorder(BorderFactory.createLineBorder(Color.red));
        statusbar =  parent.getStatusBar();
        board = new Tetrominoes[BoardWidth * BoardHeight];
        addKeyListener(new TAdapter());
        clearBoard();  
     }
+    
+    @Override
+	public Dimension getPreferredSize()
+	{
+		return new Dimension(200,400);
+
+	}
 
     public void actionPerformed(ActionEvent e) {
         if (isFallingFinished) {
@@ -74,6 +85,8 @@ public class Board extends JPanel implements ActionListener {
 
         newPiece();
         timer.start();
+        pause();
+        statusbar.setText("press p to start");
     }
 
     private void pause()
