@@ -35,9 +35,8 @@ public class Board extends JPanel implements ActionListener {
 	int speed;
 
 
-
 	public Board(Tetris parent) {
-
+				
 		setFocusable(true);
 		curPiece = new Shape();
 		speed = 400;
@@ -48,7 +47,7 @@ public class Board extends JPanel implements ActionListener {
 		statusbar =  parent.getStatusBar();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
 		addKeyListener(new TAdapter());
-		clearBoard();  
+		clearBoard(); 
 	}
 
 	@Override
@@ -319,7 +318,7 @@ public class Board extends JPanel implements ActionListener {
 		public void keyPressed(KeyEvent e) {
 
 			int keycode = e.getKeyCode();
-			System.out.println(keycode);
+			//System.out.println(keycode);
 
 			if (keycode == 'r' || keycode == 'R') {
 				start();

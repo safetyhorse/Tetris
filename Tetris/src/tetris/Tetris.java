@@ -14,11 +14,13 @@ import javax.sound.midi.Sequencer;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 public class Tetris extends JFrame {
 
 	JLabel statusbar;
+	ScorePanel scorePanel;
 
 
 	public Tetris() {
@@ -26,9 +28,11 @@ public class Tetris extends JFrame {
 		statusbar = new JLabel(" 0");
 		statusbar.setBorder(BorderFactory.createLineBorder(Color.green));
 		//statusbar.setSize(200,400);
-		//add(statusbar, BorderLayout.EAST);		
-		Instructions instruct = new Instructions();
-		add(instruct, BorderLayout.WEST);
+		//add(statusbar, BorderLayout.EAST);
+		ScorePanel scorePanel = new ScorePanel();
+		add(scorePanel, BorderLayout.EAST);
+		Instructions instructions = new Instructions();
+		add(instructions, BorderLayout.WEST);
 		Board board = new Board(this);
 		add(board, BorderLayout.CENTER);
 		board.start();
@@ -39,10 +43,12 @@ public class Tetris extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//music();
 		pack();
+		
+		//scorePanel.setLabelText("test!");
 	}
 
 	public JLabel getStatusBar() {
-		return statusbar;
+		return statusbar;		
 	}
 
 	public static void main(String[] args) {
