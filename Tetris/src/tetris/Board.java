@@ -99,7 +99,7 @@ public class Board extends JPanel implements ActionListener {
 			statusbar.setText("paused");
 		} else {
 			timer.start();
-			statusbar.setText(String.valueOf(numLinesRemoved));
+			statusbar.setText(String.valueOf(numLinesRemoved*1000));
 		}
 		repaint();
 	}
@@ -180,7 +180,10 @@ public class Board extends JPanel implements ActionListener {
 			curPiece.setShape(Tetrominoes.NoShape);
 			timer.stop();
 			isStarted = false;
-			statusbar.setText("game over");	
+			statusbar.setText(
+					"<html><p align='center'>game over <br>" 
+					+ numLinesRemoved*1000 
+					+ " points</p></html>");	
 			addKeyListener(new TAdapterOver());
 		}
 	}
@@ -228,7 +231,7 @@ public class Board extends JPanel implements ActionListener {
 
 		if (numFullLines > 0) {
 			numLinesRemoved += numFullLines;
-			statusbar.setText(String.valueOf(numLinesRemoved));
+			statusbar.setText(String.valueOf(numLinesRemoved*1000));
 			isFallingFinished = true;
 			curPiece.setShape(Tetrominoes.NoShape);
 			repaint();

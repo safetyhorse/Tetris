@@ -13,10 +13,11 @@ import javax.swing.border.EmptyBorder;
 
 public class ScorePanel extends JPanel
 {
-	JLabel statusbar = new JLabel();
+	JLabel statusbar;
 	
-	public ScorePanel()
+	public ScorePanel(Tetris parent)
 	{
+		statusbar =  parent.getStatusBar();
 		//statusbar = new JLabel("GAME OVER YOU HOSER!");
 		//statusbar.setBorder(BorderFactory.createLineBorder(Color.green));
 		statusbar.setBorder(new EmptyBorder(20,0,10,0));

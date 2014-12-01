@@ -26,10 +26,10 @@ public class Tetris extends JFrame {
 	public Tetris() {
 
 		statusbar = new JLabel(" 0");
-		statusbar.setBorder(BorderFactory.createLineBorder(Color.green));
+		//statusbar.setBorder(BorderFactory.createLineBorder(Color.green));
 		//statusbar.setSize(200,400);
 		//add(statusbar, BorderLayout.EAST);
-		ScorePanel scorePanel = new ScorePanel();
+		ScorePanel scorePanel = new ScorePanel(this);
 		add(scorePanel, BorderLayout.EAST);
 		Instructions instructions = new Instructions();
 		add(instructions, BorderLayout.WEST);
