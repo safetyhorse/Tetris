@@ -1,7 +1,11 @@
 package tetris;
 
 import java.util.Random;
+import java.awt.Color;
 import java.lang.Math;
+
+import javax.swing.BorderFactory;
+import javax.swing.border.CompoundBorder;
 
 
 public class Shape {

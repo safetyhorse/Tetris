@@ -7,11 +7,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 import tetris.Shape.Tetrominoes;
 
@@ -43,17 +54,24 @@ public class Board extends JPanel implements ActionListener {
 		timer = new Timer(speed, this);
 		timer.start(); 
 
-		this.setBorder(BorderFactory.createLineBorder(Color.red));
+		this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		//this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.white));
+		//this.setBorder(new EmptyBorder(10,100,10,100));
+		/*this.setBorder(new CompoundBorder(
+				BorderFactory.createLineBorder(Color.black, 4),
+				BorderFactory.createLineBorder(Color.green, 4)));*/
 		statusbar =  parent.getStatusBar();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
 		addKeyListener(new TAdapter());
 		clearBoard(); 
+		this.setBackground(Color.white);
+
 	}
 
 	@Override
 	public Dimension getPreferredSize()
 	{
-		return new Dimension(200,400);
+		return new Dimension(300,600);
 
 	}
 
@@ -87,7 +105,7 @@ public class Board extends JPanel implements ActionListener {
 		timer.setDelay(speed);
 		timer.start();
 		pause();
-		statusbar.setText("press p to start");
+		statusbar.setText("Press p to start");
 	}
 
 	private void pause()
@@ -183,7 +201,7 @@ public class Board extends JPanel implements ActionListener {
 			timer.stop();
 			isStarted = false;
 			statusbar.setText(
-					"<html><p align='center'>game over <br>" 
+					"<html><p align='center'>Game Over <br>" 
 					+ numLinesRemoved*1000 
 					+ " points</p></html>");	
 			addKeyListener(new TAdapterOver());
@@ -253,10 +271,10 @@ public class Board extends JPanel implements ActionListener {
 
 	private void drawSquare(Graphics g, int x, int y, Tetrominoes shape)
 	{
-		Color colors[] = { new Color(0, 0, 0), new Color(204, 102, 102), 
-				new Color(102, 204, 102), new Color(102, 102, 204), 
-				new Color(204, 204, 102), new Color(204, 102, 204), 
-				new Color(102, 204, 204), new Color(218, 170, 0)
+		Color colors[] = { new Color(0, 0, 0), new Color(200, 15, 255), 
+				new Color(125, 13, 255), new Color(53, 12, 232), 
+				new Color(0, 20, 255), new Color(12, 87, 232), 
+				new Color(13, 160, 255), new Color(14, 170, 255)
 		};
 
 
@@ -265,7 +283,7 @@ public class Board extends JPanel implements ActionListener {
 		g.setColor(color);
 		g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
 
-		//borders top and left
+		/*//borders top and left
 		g.setColor(color.brighter());
 		g.drawLine(x, y + squareHeight() - 1, x, y);
 		g.drawLine(x, y, x + squareWidth() - 1, y);
@@ -275,7 +293,7 @@ public class Board extends JPanel implements ActionListener {
 		g.drawLine(x + 1, y + squareHeight() - 1,
 				x + squareWidth() - 1, y + squareHeight() - 1);
 		g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
-				x + squareWidth() - 1, y + 1);
+				x + squareWidth() - 1, y + 1);*/
 	}
 
 	class TAdapter extends KeyAdapter {
@@ -339,7 +357,7 @@ public class Board extends JPanel implements ActionListener {
 		public void keyPressed(KeyEvent e) {
 
 			int keycode = e.getKeyCode();
-			System.out.println(keycode);
+			//System.out.println(keycode);
 
 			if (keycode == 'r' || keycode == 'R') {
 				start();

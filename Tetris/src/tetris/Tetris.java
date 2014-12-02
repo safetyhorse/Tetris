@@ -22,6 +22,7 @@ public class Tetris extends JFrame {
 	JLabel statusbar;
 	ScorePanel scorePanel;
 	Shape curPiece;
+	JLabel space;
 
 
 	public Tetris() {
@@ -30,6 +31,11 @@ public class Tetris extends JFrame {
 		//statusbar.setBorder(BorderFactory.createLineBorder(Color.green));
 		//statusbar.setSize(200,400);
 		//add(statusbar, BorderLayout.EAST);
+		space = new JLabel(" ");
+		space.setBackground(Color.white);
+		add(space, BorderLayout.SOUTH);
+		TitlePanel titlePanel = new TitlePanel();
+		add(titlePanel, BorderLayout.NORTH);
 		ScorePanel scorePanel = new ScorePanel(this);
 		add(scorePanel, BorderLayout.EAST);
 		Instructions instructions = new Instructions();
@@ -37,12 +43,13 @@ public class Tetris extends JFrame {
 		Board board = new Board(this);
 		add(board, BorderLayout.CENTER);
 		board.start();
+		this.setBackground(Color.white);
 
 		//board.setSize(200, 400);
 		//setSize(400,400);
 		setTitle("Tetris");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//music();
+		music();
 		pack();
 		
 		//scorePanel.setLabelText("test!");
