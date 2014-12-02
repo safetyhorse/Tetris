@@ -21,6 +21,7 @@ public class Tetris extends JFrame {
 
 	JLabel statusbar;
 	ScorePanel scorePanel;
+	Shape curPiece;
 
 
 	public Tetris() {

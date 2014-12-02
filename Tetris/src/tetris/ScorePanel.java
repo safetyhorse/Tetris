@@ -24,7 +24,7 @@ public class ScorePanel extends JPanel
 		//this.setLayout(new GridBagLayout());
 		//GridBagConstraints gbc = new GridBagConstraints();
 		add(statusbar, BorderLayout.NORTH);
-		statusbar.setText("GAME OVER GAME OVER!");
+		//statusbar.setText("GAME OVER GAME OVER!");
 	}
 	
 	public ScorePanel setLabelText(String newText)

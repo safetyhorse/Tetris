@@ -74,29 +74,31 @@ public class Board extends JPanel implements ActionListener {
 
 	public void start()
 	{
-		if (isPaused)
-			return;
+		/*if (isPaused)
+			return;*/
 
 		isStarted = true;
 		isFallingFinished = false;
 		numLinesRemoved = 0;
 		clearBoard();
+		speed = 400;
 
 		newPiece();
+		timer.setDelay(speed);
 		timer.start();
 		pause();
 		statusbar.setText("press p to start");
 	}
 
 	private void pause()
-	{
+	{	
 		if (!isStarted)
 			return;
 
 		isPaused = !isPaused;
-		if (isPaused) {
+		if (isPaused) {	
 			timer.stop();
-			statusbar.setText("paused");
+			statusbar.setText("Paused");			
 		} else {
 			timer.start();
 			statusbar.setText(String.valueOf(numLinesRemoved*1000));
@@ -190,6 +192,7 @@ public class Board extends JPanel implements ActionListener {
 
 	private boolean tryMove(Shape newPiece, int newX, int newY)
 	{
+		//pause();
 		for (int i = 0; i < 4; ++i) {
 			int x = newX + newPiece.x(i);
 			int y = newY - newPiece.y(i);
@@ -235,7 +238,17 @@ public class Board extends JPanel implements ActionListener {
 			isFallingFinished = true;
 			curPiece.setShape(Tetrominoes.NoShape);
 			repaint();
+			//gradually speed up the rate of decent
+			if(speed > 50)
+			{
+				speed = speed - 10;
+			}
+			timer.setDelay(speed);
+			//timer.restart();
+			
 		}
+		//System.out.println(speed);
+		//System.out.println(timer.getDelay());
 	}
 
 	private void drawSquare(Graphics g, int x, int y, Tetrominoes shape)
@@ -273,11 +286,16 @@ public class Board extends JPanel implements ActionListener {
 			}
 
 			int keycode = e.getKeyCode();
-
+			
+			if (keycode == 'r' || keycode == 'R') {
+				start();
+				return;
+			}
+			
 			if (keycode == 'p' || keycode == 'P') {
 				pause();
 				return;
-			}
+			}	
 
 			if (isPaused)
 				return;
@@ -310,7 +328,7 @@ public class Board extends JPanel implements ActionListener {
 				break;
 			case 'R':
 				start();
-				System.out.println("R");
+				//System.out.println("R");
 				break;
 			}
 
@@ -321,7 +339,7 @@ public class Board extends JPanel implements ActionListener {
 		public void keyPressed(KeyEvent e) {
 
 			int keycode = e.getKeyCode();
-			//System.out.println(keycode);
+			System.out.println(keycode);
 
 			if (keycode == 'r' || keycode == 'R') {
 				start();
